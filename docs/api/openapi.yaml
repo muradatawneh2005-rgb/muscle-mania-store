@@ -1,0 +1,353 @@
+openapi: 3.0.3
+info:
+  title: Muscle Mania Store API
+  version: 0.1.0
+  description: Planned REST endpoints (SRS section 9). Phase 2 = specification only.
+servers:
+  - url: https://example.com/api/v1
+components:
+  securitySchemes:
+    session:
+      type: apiKey
+      in: cookie
+      name: mm_session
+    csrf:
+      type: apiKey
+      in: header
+      name: X-CSRF-Token
+paths:
+  /auth/register:
+    post:
+      summary: "Create a customer account"
+      description: "Auth: None (CSRF token from GET /auth/csrf)"
+      responses:
+        '200':
+          description: "201 {'user':{'id','full_name','role'}} + Set-Cookie session"
+  /auth/login:
+    post:
+      summary: "Log in"
+      description: "Auth: None (CSRF)"
+      responses:
+        '200':
+          description: "200 {'user':{…}} + Set-Cookie; 401; 423 locked"
+  /auth/logout:
+    post:
+      summary: "End the session"
+      description: "Auth: Session"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "204"
+  /auth/password-reset:
+    post:
+      summary: "Send / confirm reset code"
+      description: "Auth: None"
+      responses:
+        '200':
+          description: "202 / 200; 400 invalid code"
+  /categories:
+    get:
+      summary: "Category tree"
+      description: "Auth: None"
+      responses:
+        '200':
+          description: "200 [{'id','name_ar','name_en','children':[…]}]"
+  /products:
+    get:
+      summary: "List / search / filter"
+      description: "Auth: None"
+      responses:
+        '200':
+          description: "200 {'items':[…],'total','page'}"
+  /products/{slug}:
+    get:
+      summary: "Product detail"
+      description: "Auth: None"
+      responses:
+        '200':
+          description: "200 {product with variants, images, rating}; 404"
+  /cart:
+    get:
+      summary: "Saved cart"
+      description: "Auth: Session (customer)"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200 {'items':[…],'subtotal'}"
+  /cart/items:
+    post:
+      summary: "Add item"
+      description: "Auth: Session + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "201; 409 not enough stock"
+  /cart/items/{variant_id}:
+    patch:
+      summary: "Change quantity"
+      description: "Auth: Session + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200; 409"
+    delete:
+      summary: "Remove item"
+      description: "Auth: Session + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "204"
+  /wishlist[/{product_id}]:
+    get:
+      summary: "Wishlist"
+      description: "Auth: Session + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200 / 201 / 204"
+    post:
+      summary: "Wishlist"
+      description: "Auth: Session + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200 / 201 / 204"
+    delete:
+      summary: "Wishlist"
+      description: "Auth: Session + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200 / 201 / 204"
+  /wishlist/{product_id}:
+    get:
+      summary: "Wishlist"
+      description: "Auth: Session + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200 / 201 / 204"
+    post:
+      summary: "Wishlist"
+      description: "Auth: Session + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200 / 201 / 204"
+    delete:
+      summary: "Wishlist"
+      description: "Auth: Session + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200 / 201 / 204"
+  /orders:
+    post:
+      summary: "Place order (guest or customer)"
+      description: "Auth: Optional session + CSRF"
+      responses:
+        '200':
+          description: "201 {'order_no','status':'PENDING','total'}; 409 stock; 422 validation"
+  /orders/track:
+    get:
+      summary: "Track by number + phone"
+      description: "Auth: None (rate-limited)"
+      responses:
+        '200':
+          description: "200 {'order_no','status','history':[…]}; 404"
+  /me/orders:
+    get:
+      summary: "Order history"
+      description: "Auth: Session (customer)"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200 {'items':[…]}"
+  /products/{id}/reviews:
+    post:
+      summary: "Add review"
+      description: "Auth: Session + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "201; 403 not delivered; 409 already reviewed"
+  /admin/products:
+    post:
+      summary: "Manage catalog"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "201 / 200 / 204; 403"
+    put:
+      summary: "Manage catalog"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "201 / 200 / 204; 403"
+    delete:
+      summary: "Manage catalog"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "201 / 200 / 204; 403"
+  /admin/products/{id}:
+    post:
+      summary: "Manage catalog"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "201 / 200 / 204; 403"
+    put:
+      summary: "Manage catalog"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "201 / 200 / 204; 403"
+    delete:
+      summary: "Manage catalog"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "201 / 200 / 204; 403"
+  /admin/variants/{id}/stock:
+    patch:
+      summary: "Set stock"
+      description: "Auth: Session EMPLOYEE/ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200; 403"
+  /admin/variants/{id}/price:
+    patch:
+      summary: "Set price"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200; 403"
+  /admin/orders:
+    get:
+      summary: "List orders"
+      description: "Auth: Session EMPLOYEE/ADMIN"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200 {'items':[…]}"
+  /admin/orders/{id}/status:
+    patch:
+      summary: "Change status"
+      description: "Auth: Session EMPLOYEE/ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200; 409 transition not allowed"
+  /admin/users:
+    get:
+      summary: "Users and roles"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200; 403"
+    patch:
+      summary: "Users and roles"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200; 403"
+  /admin/users/{id}:
+    get:
+      summary: "Users and roles"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200; 403"
+    patch:
+      summary: "Users and roles"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200; 403"
+  /admin/reviews/{id}:
+    patch:
+      summary: "Moderate review"
+      description: "Auth: Session ADMIN + CSRF"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200"
+  /admin/reports/sales:
+    get:
+      summary: "Sales report"
+      description: "Auth: Session ADMIN"
+      security:
+        - session: []
+          csrf: []
+      responses:
+        '200':
+          description: "200 {'orders','revenue','top_products':[…]}"
