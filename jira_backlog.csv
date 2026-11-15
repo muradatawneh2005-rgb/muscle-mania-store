@@ -1,0 +1,164 @@
+﻿Issue ID,Issue Type,Summary,Description,Priority,Story Points,Sprint,Assignee,Labels,Parent ID
+E1,Epic,Accounts & Authentication,Epic: Accounts & Authentication,High,,,Murad,epic,
+E2,Epic,"Catalog, Search & Language","Epic: Catalog, Search & Language",High,,,Murad,epic,
+E3,Epic,"Cart, Checkout & Orders","Epic: Cart, Checkout & Orders",High,,,Murad,epic,
+E4,Epic,Back Office (Admin & Employee),Epic: Back Office (Admin & Employee),High,,,Murad,epic,
+E5,Epic,Fitness Content & Nutrition Advisor,Epic: Fitness Content & Nutrition Advisor,High,,,Murad,epic,
+E6,Epic,"Infrastructure, Integration & Quality","Epic: Infrastructure, Integration & Quality",High,,,Murad,epic,
+US-01,Story,US-01: User Registration,"As a guest visitor, I want to create an account with my name, phone or email and a password, so that I can track my orders and checkout faster next time.
+
+Requirement: FR-01 — The system shall allow a guest to register a new account with full name, email or phone, and password.
+
+Acceptance criteria:
+- GIVEN I am on the registration page and the phone is not already registered WHEN I submit a valid name, phone and a password of 8+ characters with a letter and a digit THEN my account is created, my password is stored hashed, and I am logged in
+- GIVEN the phone or email is already registered WHEN I submit the form THEN I see ""This phone/email is already registered"" and no account is created",High,5,Sprint 1,Murad,FR-01,E1
+US-02,Story,US-02: Secure Login,"As a registered user, I want to log in with my credentials and log out, so that my orders and saved items are available to me only.
+
+Requirement: FR-02 — The system shall allow registered users to log in securely and log out.
+
+Acceptance criteria:
+- GIVEN I have an active account WHEN I enter the correct email/phone and password THEN I am logged in and redirected to the page I came from
+- GIVEN I entered a wrong password 5 times WHEN I try a 6th time within 15 minutes THEN the account is temporarily locked and I see when I can try again",High,5,Sprint 1,Murad,FR-02,E1
+US-03,Story,US-03: Password Reset,"As a registered customer, I want to reset my password if I forget it, so that I do not lose access to my account.
+
+Requirement: FR-03 — The system shall allow a registered user to reset a forgotten password through a one-time code sent to the verified email or phone.
+
+Acceptance criteria:
+- GIVEN I requested a reset code for my registered phone WHEN I enter the valid code within 10 minutes and a new valid password THEN my password is changed and old sessions are signed out
+- GIVEN the code is wrong or expired WHEN I submit it THEN I see ""Invalid or expired code"" and the password is unchanged",Medium,3,Sprint 2,Murad,FR-03,E1
+US-04,Story,US-04: Browse by Category,"As a shopper, I want to browse products by category and brand, so that I can find the type of product I need.
+
+Requirement: FR-04 — The system shall allow users to browse products by category and by brand.
+
+Acceptance criteria:
+- GIVEN I am on the home page WHEN I open the ""Supplements"" category THEN I see only in-stock products of that category with name, image, price and an add button",High,3,Sprint 2,Member 2,FR-04,E2
+US-05,Story,US-05: Search and Filter Products,"As a shopper, I want to search by keyword and filter by brand, price and category, so that I quickly find the right product.
+
+Requirement: FR-05 — The system shall allow users to search products by keyword (Arabic or English) and filter them by category, brand, price range and availability, and sort the results.
+
+Acceptance criteria:
+- GIVEN products exist matching ""whey"" WHEN I search ""whey"" or ""واي"" and filter by brand and a price range THEN only matching products in that range are listed, within 2 seconds
+- GIVEN nothing matches my search WHEN I submit it THEN I see a ""no results"" message with a link to all products",High,5,Sprint 2,Member 2,FR-05,E2
+US-06,Story,US-06: Product Details,"As a shopper, I want to see a product's images, flavours, price and stock, so that I can decide before buying.
+
+Requirement: FR-06 — The system shall display a product detail page with images, description, variants (flavour/size), price, previous price if discounted, and stock status.
+
+Acceptance criteria:
+- GIVEN a product has several flavours with different stock WHEN I open its page and pick a flavour THEN the price, image and stock status update for that flavour, and out-of-stock flavours cannot be added",High,3,Sprint 2,Member 2,FR-06,E2
+US-07,Story,US-07: Language Switch,"As a shopper, I want to switch between Arabic and English, so that I can use the store in my language.
+
+Requirement: FR-07 — The system shall allow users to switch the interface between Arabic (right-to-left) and English (left-to-right) and remember the choice.
+
+Acceptance criteria:
+- GIVEN I am on any page in Arabic WHEN I choose English THEN the page shows English texts in left-to-right layout and the choice is kept on the next pages",High,3,Sprint 1,Member 2,FR-07,E2
+US-08,Story,US-08: Manage Cart,"As a shopper, I want to add products to a cart and change quantities, so that I can buy several products in one order.
+
+Requirement: FR-08 — The system shall allow users to add products to a cart, change quantities and remove items, limited by available stock.
+
+Acceptance criteria:
+- GIVEN a product variant has 3 items in stock WHEN I try to set its quantity to 4 THEN the quantity stays at 3 and I see ""Only 3 left in stock""
+- GIVEN my cart has items WHEN I remove one THEN the item disappears and the total is recalculated",High,5,Sprint 3,Member 2,FR-08,E3
+US-09,Story,US-09: Wishlist,"As a shopper, I want to save products to a wishlist, so that I can buy them later.
+
+Requirement: FR-09 — The system shall allow users to save products to a wishlist and move them to the cart.
+
+Acceptance criteria:
+- GIVEN I am on a product page WHEN I tap ""Add to wishlist"" THEN the product appears in my wishlist and the wishlist counter increases",Low,2,Sprint 3,Member 2,FR-09,E3
+US-10,Story,US-10: Place Order,"As a shopper, I want to place an order with my address and pay cash on delivery, so that the store delivers my products.
+
+Requirement: FR-10 — The system shall allow users to place an order by entering name, phone, region, city and address, and confirming cash on delivery.
+
+Acceptance criteria:
+- GIVEN my cart contains in-stock items WHEN I enter valid name, phone, region, city and address and click ""Place order"" THEN a new order is created with status Pending and stock is reserved
+- GIVEN my cart is empty WHEN I open checkout THEN the ""Place order"" button is disabled and I see ""Your cart is empty""
+- GIVEN an item went out of stock after I added it WHEN I place the order THEN the order is not created and I am told which item to remove or reduce",High,8,Sprint 3,Murad,FR-10,E3
+US-11,Story,US-11: Order Confirmation,"As a shopper, I want to receive an order number and a WhatsApp summary, so that I have proof of my order.
+
+Requirement: FR-11 — The system shall give the customer an order number after placing an order and send the order summary by WhatsApp.
+
+Acceptance criteria:
+- GIVEN my order was created WHEN the confirmation page loads THEN I see the order number and a WhatsApp message with the order summary is sent to my phone",High,3,Sprint 3,Member 3,FR-11,E3
+US-12,Story,US-12: Track Order,"As a shopper, I want to track my order with its number and my phone, so that I know when it will arrive.
+
+Requirement: FR-12 — The system shall allow users to track the status of an order using the order number and the phone number used in the order.
+
+Acceptance criteria:
+- GIVEN order MM-1042 was placed with phone 0599xxxxxx WHEN I enter MM-1042 and that phone THEN I see the current status and the date of each status change
+- GIVEN the phone does not match the order WHEN I submit THEN I see ""Order not found"" without revealing that the order exists",Medium,3,Sprint 4,Member 3,FR-12,E3
+US-13,Story,US-13: Order History,"As a registered customer, I want to see my previous orders, so that I can reorder or check details.
+
+Requirement: FR-13 — The system shall allow registered customers to view their order history and order details.
+
+Acceptance criteria:
+- GIVEN I am logged in and have 2 orders WHEN I open ""My orders"" THEN I see both orders, newest first, with number, date, total and status",Medium,3,Sprint 4,Member 2,FR-13,E3
+US-14,Story,US-14: Product Review,"As a registered customer, I want to rate and review a product I received, so that other customers can benefit from my experience.
+
+Requirement: FR-14 — The system shall allow registered customers to rate (1–5) and review products they received.
+
+Acceptance criteria:
+- GIVEN I have a Delivered order that contains the product WHEN I submit 4 stars and a comment THEN my review is saved as Pending moderation
+- GIVEN I have no delivered order with the product WHEN I open the review form THEN I see ""You can review products you have received""",Low,3,Sprint 4,Member 2,FR-14,E3
+US-15,Story,US-15: Nutrition Advisor,"As a shopper, I want to answer a few questions and get my daily calories and protein, so that I choose the right supplements.
+
+Requirement: FR-15 — The system shall calculate daily calorie and protein targets from the user's answers (age, height, weight, activity, goal) and suggest matching products.
+
+Acceptance criteria:
+- GIVEN I answered all required questions WHEN I click ""Show my numbers"" THEN I see calorie and protein targets, suggested products and the ""not medical advice"" notice",Medium,5,Sprint 4,Member 3,FR-15,E5
+US-16,Story,US-16: Exercises and Programs,"As a shopper, I want to browse exercises and training programs by muscle group and level, so that I can train correctly.
+
+Requirement: FR-16 — The system shall allow users to browse an exercise library and training programs, filtered by muscle group, level and equipment.
+
+Acceptance criteria:
+- GIVEN the exercise library is open WHEN I filter by ""Chest"" and ""Beginner"" THEN only beginner chest exercises are listed with images and steps",Low,3,Sprint 5,Member 4,FR-16,E5
+US-17,Story,US-17: Manage Catalog,"As a administrator, I want to add, edit and delete products and their variants and images, so that the catalog stays up to date.
+
+Requirement: FR-17 — The system shall allow administrators to create, edit and delete products, variants, images, categories and brands.
+
+Acceptance criteria:
+- GIVEN I am logged in as Admin WHEN I create a product with name (AR/EN), category, brand, price and one variant THEN the product appears on the site and in search
+- GIVEN I am logged in as Employee WHEN I open the catalog editor THEN access is denied (HTTP 403)",High,8,Sprint 4,Murad,FR-17,E4
+US-18,Story,US-18: Update Stock and Prices,"As a administrator or employee, I want to update stock quantities (and prices as admin), so that customers see correct availability and prices.
+
+Requirement: FR-18 — The system shall allow employees and administrators to update stock quantities, and administrators to update prices.
+
+Acceptance criteria:
+- GIVEN a variant has stock 0 WHEN an Employee sets it to 10 THEN the variant becomes available on the site
+- GIVEN I am an Employee WHEN I try to change a price THEN the request is rejected (HTTP 403)",High,5,Sprint 5,Member 3,FR-18,E4
+US-19,Story,US-19: Process Orders,"As a store employee, I want to see orders and change their status, so that customers get their orders on time.
+
+Requirement: FR-19 — The system shall allow employees and administrators to view all orders, filter them by status and date, and change an order's status according to the allowed transitions.
+
+Acceptance criteria:
+- GIVEN an order is Pending WHEN I change it to Confirmed THEN the status and the time of change are saved and visible in tracking
+- GIVEN an order is Delivered WHEN I try to change it to Pending THEN the change is refused because Delivered is final",High,5,Sprint 5,Murad,FR-19,E4
+US-20,Story,US-20: Manage Users and Roles,"As a administrator, I want to manage accounts and roles, so that only authorised staff can use the back office.
+
+Requirement: FR-20 — The system shall allow administrators to manage user accounts and assign roles (Customer, Employee, Admin).
+
+Acceptance criteria:
+- GIVEN a user has the Customer role WHEN I assign the Employee role THEN the user can open the orders screen at next login",Medium,3,Sprint 5,Murad,FR-20,E4
+US-21,Story,US-21: Sales and Stock Reports,"As a administrator, I want to see sales and stock for a period, so that I can plan purchasing.
+
+Requirement: FR-21 — The system shall allow administrators to view sales and stock reports for a chosen period.
+
+Acceptance criteria:
+- GIVEN there are delivered orders this month WHEN I open the sales report for this month THEN I see order count, revenue and best-selling products for that period",Low,5,Sprint 5,Member 4,FR-21,E4
+US-22,Story,US-22: Moderate Reviews,"As a administrator, I want to approve or hide reviews, so that only appropriate reviews are public.
+
+Requirement: FR-22 — The system shall allow administrators to approve, hide or delete product reviews.
+
+Acceptance criteria:
+- GIVEN a review is Pending WHEN I approve it THEN it appears on the product page and the product rating is recalculated",Low,2,Sprint 5,Member 4,FR-22,E4
+T-01,Task,"Create GitHub repository, invite collaborators, add base structure","Create GitHub repository, invite collaborators, add base structure",Medium,1,Sprint 1,Murad,technical,E6
+T-02,Task,"Set up Jira project, backlog and sprints","Set up Jira project, backlog and sprints",Medium,1,Sprint 1,Murad,technical,E6
+T-03,Task,Design ERD and write database/schema.sql (PostgreSQL),Design ERD and write database/schema.sql (PostgreSQL),Medium,5,Sprint 1,Member 3,technical,E6
+T-04,Task,"Backend skeleton: FastAPI app, config from environment, health endpoint","Backend skeleton: FastAPI app, config from environment, health endpoint",Medium,3,Sprint 1,Murad,technical,E6
+T-05,Task,"Frontend skeleton: layout, header, footer, RTL/LTR styles","Frontend skeleton: layout, header, footer, RTL/LTR styles",Medium,5,Sprint 1,Member 2,technical,E6
+T-06,Task,"Implement auth API: register, login, logout, sessions, CSRF","Implement auth API: register, login, logout, sessions, CSRF",Medium,8,Sprint 2,Murad,technical,E1
+T-07,Task,"Implement products API: list, search, filter, detail","Implement products API: list, search, filter, detail",Medium,5,Sprint 2,Member 3,technical,E2
+T-08,Task,"ERP sync job: import products, prices and stock every 5 minutes","ERP sync job: import products, prices and stock every 5 minutes",Medium,8,Sprint 3,Member 3,technical,E6
+T-09,Task,"Implement orders API: create order with stock check, track order","Implement orders API: create order with stock check, track order",Medium,8,Sprint 3,Murad,technical,E3
+T-10,Task,WhatsApp notification service for new orders,WhatsApp notification service for new orders,Medium,5,Sprint 4,Member 3,technical,E3
+T-11,Task,Back office UI: orders list and status change,Back office UI: orders list and status change,Medium,5,Sprint 5,Member 2,technical,E4
+T-12,Task,"Security hardening: rate limiting, headers, input validation","Security hardening: rate limiting, headers, input validation",Medium,5,Sprint 5,Member 4,technical,E6
+T-13,Task,Write test cases TC-01..TC-22 and run regression,Write test cases TC-01..TC-22 and run regression,Medium,5,Sprint 5,Member 4,technical,E6
